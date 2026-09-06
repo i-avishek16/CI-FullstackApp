@@ -13,26 +13,44 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout code
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
 
+      # Step 3: Backend install
       - name: Install backend dependencies
         run: npm install
         working-directory: backend
 
+      # Step 4: Backend tests
       - name: Run backend tests
         run: npm test || echo "No backend tests defined"
         working-directory: backend
 
+      # Step 5: Frontend install
       - name: Install frontend dependencies
         run: npm install
         working-directory: frontend
 
+      # Step 6: Frontend build
       - name: Build frontend
         run: npm run build || echo "No frontend build script defined"
         working-directory: frontend
+
+      # Step 7: Lint check (optional, requires lint script in package.json)
+      - name: Run ESLint
+        run: npm run lint || echo "No lint script defined"
+        working-directory: frontend
+
+      # Step 8: Upload frontend build artifacts
+      - name: Upload frontend build
+        uses: actions/upload-artifact@v3
+        with:
+          name: frontend-build
+          path: frontend/dist
