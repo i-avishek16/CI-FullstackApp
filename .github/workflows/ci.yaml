@@ -2,26 +2,25 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: 
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches: 
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout code
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
 
-      # Backend steps
       - name: Install backend dependencies
         run: npm install
         working-directory: backend
@@ -30,7 +29,6 @@ jobs:
         run: npm test || echo "No backend tests defined"
         working-directory: backend
 
-      # Frontend steps
       - name: Install frontend dependencies
         run: npm install
         working-directory: frontend
