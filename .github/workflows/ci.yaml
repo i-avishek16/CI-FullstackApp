@@ -24,17 +24,17 @@ jobs:
       # Backend steps
       - name: Install backend dependencies
         run: npm install
-        working-directory: CI-FullstackApp/backend
+        working-directory: backend
 
       - name: Run backend tests
         run: npm test || echo "No backend tests defined"
-        working-directory: CI-FullstackApp/backend
+        working-directory: backend
 
       # Frontend steps
       - name: Install frontend dependencies
         run: npm install
-        working-directory: CI-FullstackApp/frontend
+        working-directory: frontend
 
       - name: Build frontend
         run: npm run build || echo "No frontend build script defined"
-        working-directory: CI-FullstackApp/frontend
+        working-directory: frontend
